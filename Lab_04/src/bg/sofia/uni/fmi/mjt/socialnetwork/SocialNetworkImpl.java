@@ -42,7 +42,7 @@ public class SocialNetworkImpl implements SocialNetwork {
             throws UserRegistrationException {
         
          if (userProfile1 == null || userProfile2 == null) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("The user profiles should not be null.");
          }       
 
          if (!isRegistered(userProfile1) || !(isRegistered(userProfile2))) {
@@ -89,7 +89,7 @@ public class SocialNetworkImpl implements SocialNetwork {
     @Override
     public Set<UserProfile> getReachedUsers(Post post) {
         if (post == null) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("The post is null.");
         }
 
         Set<UserProfile> reachedAudience = new HashSet<>();
@@ -122,7 +122,7 @@ public class SocialNetworkImpl implements SocialNetwork {
     public void registerUser(UserProfile userProfile) throws UserRegistrationException {
        
         if(userProfile == null) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("The user profile is null.);
         }
 
        if(isRegistered(userProfile)) {
