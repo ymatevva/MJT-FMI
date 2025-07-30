@@ -25,7 +25,7 @@ public class SobelEdgeDetection implements EdgeDetectionAlgorithm {
     };
 
     public SobelEdgeDetection(ImageAlgorithm grayscaleAlgorithm) {
-        grayscaleAlg = new LuminosityGrayscale();
+        this.grayscaleAlg = grayscaleAlgorithm;
     }
 
     private void applyAlg(BufferedImage transformed, BufferedImage image, int startX,
