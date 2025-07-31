@@ -20,6 +20,8 @@ public class TestLocalFileSystemImageManager {
 
     private LocalFileSystemImageManager localFileSystemImageManager;
 
+    // TO DO: test save method and make tests where everything should work
+    
     @BeforeEach
     void setup() {
         localFileSystemImageManager = new LocalFileSystemImageManager();
