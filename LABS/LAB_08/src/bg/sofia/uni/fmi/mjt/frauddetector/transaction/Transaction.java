@@ -11,8 +11,11 @@ public record Transaction(String transactionID, String accountID, double transac
 
         // splitting a line of the .csv
 
+<<<<<<< HEAD
       // TO DO: not the best practice to have magic numbers
       
+=======
+>>>>>>> 4a494ab (Update TestLocationRule and other lab files)
         String[] data = line.split(",");
 
         Channel transactionChannel = switch (data[5].toLowerCase()) {
