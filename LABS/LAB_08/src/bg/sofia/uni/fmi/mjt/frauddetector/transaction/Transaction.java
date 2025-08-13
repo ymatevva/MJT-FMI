@@ -11,6 +11,8 @@ public record Transaction(String transactionID, String accountID, double transac
 
         // splitting a line of the .csv
 
+      // TO DO: not the best practice to have magic numbers
+      
         String[] data = line.split(",");
 
         Channel transactionChannel = switch (data[5].toLowerCase()) {
