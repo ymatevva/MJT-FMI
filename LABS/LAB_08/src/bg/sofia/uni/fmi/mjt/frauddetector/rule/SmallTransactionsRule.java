@@ -6,6 +6,8 @@ import java.util.List;
 
 public class SmallTransactionsRule extends RuleImpl {
 
+    // this is the minimum amount that can be withdrawn
+
     private double amountThreshold;
 
     public SmallTransactionsRule(int countThreshold, double amountThreshold, double weight) {
@@ -15,12 +17,10 @@ public class SmallTransactionsRule extends RuleImpl {
 
     @Override
     public boolean applicable(List<Transaction> transactions) {
-
-        int countOp = (int) transactions.stream()
+        return transactions.stream()
             .filter(p -> p.transactionAmount() < amountThreshold)
-            .count();
-
-        return countOp > super.getThreshold();
+            .count()
+            > super.threshold();
     }
 
 }

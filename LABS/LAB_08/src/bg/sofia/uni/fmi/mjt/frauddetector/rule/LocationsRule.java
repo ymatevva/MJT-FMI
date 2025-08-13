@@ -10,6 +10,8 @@ public class LocationsRule extends RuleImpl {
         super(weight, threshold);
     }
 
+    // if the operations are made from more than 'threshold' locations => true
+
     @Override
     public boolean applicable(List<Transaction> transactions) {
         int countOp = (int)transactions.stream()
@@ -17,6 +19,6 @@ public class LocationsRule extends RuleImpl {
             .distinct()
             .count();
 
-        return countOp > super.getThreshold();
+        return countOp > super.threshold();
     }
 }

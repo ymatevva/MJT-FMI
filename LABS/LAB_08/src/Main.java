@@ -11,6 +11,7 @@ import java.io.FileReader;
 import java.io.Reader;
 import java.time.Period;
 import java.util.List;
+import java.util.SortedMap;
 
 public class Main {
 
@@ -26,10 +27,19 @@ public class Main {
         );
 
         TransactionAnalyzer analyzer = new TransactionAnalyzerImpl(reader, rules);
+        List<String> accounts = analyzer.allAccountIDs();
+        System.out.println(accounts.size());
+        SortedMap<String, Double> mp = analyzer.accountsRisk();
 
-        System.out.println(analyzer.allAccountIDs());
-        System.out.println(analyzer.allTransactionsByUser(analyzer.allTransactions().getFirst().accountID()));
-        System.out.println(analyzer.accountsRisk());
+        for (var acc : mp.entrySet()) {
+            System.out.println(acc.getValue());
+        }
+
+        System.out.println(analyzer.accountsRisk().size()); // correct
+
+//        System.out.println(analyzer.allAccountIDs());
+//        System.out.println(analyzer.allTransactionsByUser(analyzer.allTransactions().getFirst().accountID()));
+//        System.out.println(analyzer.accountsRisk());
     }
 
 }

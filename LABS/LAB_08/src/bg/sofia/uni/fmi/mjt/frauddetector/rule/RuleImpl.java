@@ -6,6 +6,8 @@ import java.util.List;
 
 public class RuleImpl implements  Rule {
 
+    // this class is made in order not to repeat the getWeight() and getThreshold() in each rule
+
     private double weight;
     private double threshold;
 
@@ -24,7 +26,7 @@ public class RuleImpl implements  Rule {
         return weight;
     }
 
-    public double getThreshold() {
+    public double threshold() {
         return threshold;
     }
 }
