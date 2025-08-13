@@ -4,23 +4,11 @@ import bg.sofia.uni.fmi.mjt.frauddetector.rule.Rule;
 import bg.sofia.uni.fmi.mjt.frauddetector.transaction.Channel;
 import bg.sofia.uni.fmi.mjt.frauddetector.transaction.Transaction;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
 import java.io.Reader;
-import java.io.UncheckedIOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
-import java.util.TreeMap;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import static java.nio.file.Files.lines;
 
 public class TransactionAnalyzerImpl implements TransactionAnalyzer {
 
@@ -28,11 +16,8 @@ public class TransactionAnalyzerImpl implements TransactionAnalyzer {
     private SortedMap<String, Double> accountsRisk;
 
     public TransactionAnalyzerImpl(Reader reader, List<Rule> rules) {
+
         validateRulesWeight(rules);
-        transactions = new ArrayList<>();
-        accountsRisk = new TreeMap<>();
-        readDataFromFile(reader);
-        calculateRisks(rules);
     }
 
     @Override
@@ -92,33 +77,6 @@ public class TransactionAnalyzerImpl implements TransactionAnalyzer {
     @Override
     public SortedMap<String, Double> accountsRisk() {
         return accountsRisk;
-    }
-
-    private void readDataFromFile(Reader reader) {
-        try (BufferedReader bufferedReader = new BufferedReader(reader);
-             Stream<String> data = bufferedReader.lines()) {
-            data.skip(1).forEach(line -> {
-                transactions.add(Transaction.of(line));
-            });
-        } catch (IOException e) {
-            throw new RuntimeException("Exception thrown while trying to read file.");
-        }
-    }
-
-    private void calculateRisks(List<Rule> rules) {
-        List<String> accounts = allAccountIDs();
-
-        for (int i = 0; i < accounts.size(); i++) {
-            double accountRisk = 0;
-            List<Transaction> accTr = allTransactionsByUser(accounts.get(i));
-
-            for (var rule : rules) {
-                if (rule.applicable(accTr)) {
-                    accountRisk += rule.weight();
-                }
-            }
-            accountsRisk.put(accounts.get(i), accountRisk);
-        }
     }
 
     private void validateAccountId(String accountID) {
