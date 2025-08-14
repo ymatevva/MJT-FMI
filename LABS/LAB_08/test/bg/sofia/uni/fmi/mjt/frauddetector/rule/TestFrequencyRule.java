@@ -7,13 +7,12 @@ import org.mockito.Mockito;
 
 import java.time.LocalDateTime;
 import java.time.Period;
-import java.time.chrono.ChronoLocalDate;
-import java.time.temporal.TemporalAmount;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
@@ -48,14 +47,22 @@ public class TestFrequencyRule {
         transactions.add(transaction5);
     }
         @Test
-    void testApplicableToBeTrue() {
+    void testApplicableTrueCondition() {
         frequencyRule = new FrequencyRule(4, Period.ofDays(20), 0.7);
         assertTrue(frequencyRule.applicable(transactions), "Rule should be applied with at least threshold transactions in given period of time.");
     }
 
     @Test
-    void testApplicableToBeFalse() {
+    void testApplicableFalseCondition() {
         frequencyRule = new FrequencyRule(2, Period.ofDays(3), 0.2);
         assertFalse(frequencyRule.applicable(transactions), "Rule should not be applied with less than threshold transactions in given period of time.");
     }
+
+    @Test
+    void testApplicableWithNull() {
+        frequencyRule = new FrequencyRule(2,Period.ofYears(2), 1.0);
+        assertThrows(IllegalArgumentException.class, () -> frequencyRule.applicable(null), "Method should throw when list of transactions is null.");
+    }
+
 }
+
