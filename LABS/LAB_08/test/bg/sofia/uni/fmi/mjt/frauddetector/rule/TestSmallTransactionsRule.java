@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
@@ -38,14 +39,21 @@ public class TestSmallTransactionRule {
         transactions.add(transaction5);
     }
     @Test
-    void testApplicableToBeTrue() {
+    void testApplicableTrueCondition() {
         smallTransactionsRule = new SmallTransactionsRule(3, 1, 0.3);
         assertTrue(smallTransactionsRule.applicable(transactions), "Rule should be applied with more than threshold number of transactions smaller than the given amount.");
     }
 
     @Test
-    void testApplicableToBeFalse() {
+    void testApplicableFalseCondition() {
         smallTransactionsRule = new SmallTransactionsRule(4, 1, 0.2);
         assertFalse(smallTransactionsRule.applicable(transactions), "Rule should not be applied with less than threshold number of transactions smaller than the given amount.");
     }
+
+    @Test
+    void testApplicableWithNull() {
+        smallTransactionsRule = new SmallTransactionsRule(3,2.0, 1.0);
+        assertThrows(IllegalArgumentException.class, () -> smallTransactionsRule.applicable(null), "Method should throw when list of transactions is null.");
+    }
+
 }
