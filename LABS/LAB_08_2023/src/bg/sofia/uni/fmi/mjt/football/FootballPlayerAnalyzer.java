@@ -52,8 +52,14 @@ public class FootballPlayerAnalyzer {
      * @return a Map with key: a Position and value: the set of players in the dataset that can play in that Position,
      * in undefined order.
      */
-    public Map<Position, Set<Player>> groupByPosition() {
-      // TO DO:
+     public Map<Position, Set<Player>> groupByPosition() {
+        return players.stream()
+            .flatMap(player -> player.positions().stream()
+                .map(position -> Map.entry(position, player)))
+            .collect(Collectors.groupingBy(
+                Map.Entry::getKey,
+                Collectors.mapping(Map.Entry::getValue, Collectors.toSet())
+            ));
     }
 
  // Option 1:
@@ -118,3 +124,4 @@ public class FootballPlayerAnalyzer {
         }
     }
 }
+
