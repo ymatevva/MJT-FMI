@@ -54,9 +54,9 @@ public class FootballPlayerAnalyzer {
      */
      public Map<Position, Set<Player>> groupByPosition() {
         return players.stream()
-            .flatMap(player -> player.positions().stream()
-                .map(position -> Map.entry(position, player)))
-            .collect(Collectors.groupingBy(
+            .flatMap(player -> player.positions().stream() // the positions a player takes
+                .map(position -> Map.entry(position, player))) // for each position a map element <Position,PLayer>
+            .collect(Collectors.groupingBy( //then for key(Poistion) collecting its values and makin set
                 Map.Entry::getKey,
                 Collectors.mapping(Map.Entry::getValue, Collectors.toSet())
             ));
@@ -124,4 +124,5 @@ public class FootballPlayerAnalyzer {
         }
     }
 }
+
 
