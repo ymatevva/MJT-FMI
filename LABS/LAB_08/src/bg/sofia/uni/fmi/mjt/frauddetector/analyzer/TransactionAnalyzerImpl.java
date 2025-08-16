@@ -30,13 +30,15 @@ public class TransactionAnalyzerImpl implements TransactionAnalyzer {
 
     private Set<Transaction> transactions;
     private Map<String, Double> accountsRisk;
+    private  List<Rule> rules;
 
     public TransactionAnalyzerImpl(Reader reader, List<Rule> rules) {
         validateRulesWeight(rules); // the rules total weight should be 1.0
         transactions = new HashSet<>();
+        this.rules = rules;
         accountsRisk = new HashMap<>();
         readDataFromFile(reader); // reading the data and transforming the lines to Transaction objects with the .of factory method
-        calculateRisks(rules); // this method takes account then all its transactions and calculates the risk that this account is not safe
+      //  calculateRisks(rules); // this method takes account then all its transactions and calculates the risk that this account is not safe
     }
 
 
@@ -86,11 +88,12 @@ public class TransactionAnalyzerImpl implements TransactionAnalyzer {
     @Override
     public double accountRating(String accountId) { // fast lookup in the hash map
         validateAccountId(accountId);
-        return accountsRisk.get(accountId);
+        return accountsRisk().get(accountId);
     }
 
     @Override   // the sorted map will compare based on the risk and if the risks are equal => comparison by account's id
     public SortedMap<String, Double> accountsRisk() {
+        calculateRisks(rules);
         SortedMap<String, Double> risks = new TreeMap<>(
             Comparator.<String, Double>comparing(accountsRisk::get)
                 .reversed()
