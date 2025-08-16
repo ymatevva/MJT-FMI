@@ -56,26 +56,32 @@ public class FootballPlayerAnalyzer {
       // TO DO:
     }
 
-    /**
-     * Returns an Optional containing the top prospect player in the dataset that can play in the provided position and
-     * that can be bought with the provided budget considering the player's value_euro. If no player can be bought with
-     * the provided budget then return an empty Optional.
-     * <p>
-     * The player's prospect is calculated by the following formula: Prospect = (r + p) ÷ a where r is the player's
-     * overall rating, p is the player's potential and a is the player's age
-     *
-     * @param position the position in which the player should be able to play
-     * @param budget   the available budget for buying a player
-     * @return an Optional containing the top prospect player
-     * @throws IllegalArgumentException in case the provided position is null or the provided budget is negative
-     */
+ // Option 1:
+//    public Optional<Player> getTopProspectPlayerForPositionInBudget(Position position, long budget) {
+//        if (position == null || budget < 0) {
+//            throw new IllegalArgumentException("The position is null or the budget is a negative number.");
+//        }
+//
+//     return players.stream()
+//            .filter( player -> player.positions().contains(position)
+//            && player.valueEuro() <= budget)
+//            .max(Comparator.comparingDouble(p -> (p.overallRating() + p.potential()) / p.age()));
+//    }
+
+    // Option 2:
     public Optional<Player> getTopProspectPlayerForPositionInBudget(Position position, long budget) {
         if (position == null || budget < 0) {
             throw new IllegalArgumentException("The position is null or the budget is a negative number.");
         }
 
-        // TO DO:
+        return players.stream()
+            .filter( player -> player.positions().contains(position)
+                && player.valueEuro() <= budget)
+            .max(Comparator.comparingDouble(this::calcProspect));
+    }
 
+    private double calcProspect(Player player) {
+        return (double)(player.overallRating() + player.potential()/ player.age());
     }
 
     public Set<Player> getSimilarPlayers(Player player) {
@@ -104,7 +110,7 @@ public class FootballPlayerAnalyzer {
     private void readFile(Reader reader) {
         try (BufferedReader bufferedReader = new BufferedReader(reader);
              Stream<String> currLine = bufferedReader.lines()) {
-            currLine.skip(1).forEach(line -> {
+             currLine.skip(1).forEach(line -> {
                 players.add(Player.of(line));
             });
         } catch (IOException e) {
