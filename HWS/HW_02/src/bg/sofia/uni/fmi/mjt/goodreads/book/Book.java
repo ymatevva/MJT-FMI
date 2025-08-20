@@ -13,8 +13,22 @@ public record Book(
     String URL
 ) {
 
-    public static Book of(String[] tokens) {
-        throw new UnsupportedOperationException("Not yet implemented");
+    private static final int ID_INDEX = 0;
+    private static final int TITLE_INDEX = 1;
+    private static final int AUTHOR_INDEX = 2;
+    private static final int DESCRIPTION_INDEX = 3;
+    private static final int GENRES_INDEX = 4;
+    private static final int RATING_INDEX = 5;
+    private static final int RATING_COUNT_INDEX = 6;
+    private static final int URL_INDEX = 7;
+    private static final String SPLIT_SYMBOL = ",";
 
+    public static Book of(String[] tokens) {
+
+        String[] genres = tokens[GENRES_INDEX].split(SPLIT_SYMBOL);
+
+        return new Book(tokens[ID_INDEX], tokens[TITLE_INDEX], tokens[AUTHOR_INDEX],
+            tokens[DESCRIPTION_INDEX], List.of(genres), Double.parseDouble(tokens[RATING_COUNT_INDEX]),
+            Integer.parseInt(tokens[RATING_INDEX]), tokens[URL_INDEX]);
     }
 }

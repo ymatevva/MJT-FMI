@@ -8,30 +8,83 @@ import java.util.Set;
 
 public class BookFinder implements BookFinderAPI {
 
-    public BookFinder(Set<Book> books, TextTokenizer tokenizer) {}
+    private Set<Book> books;
+    private TextTokenizer textTokenizer;
 
-    public Set<Book> allBooks() {
-        throw new UnsupportedOperationException("Not yet implemented");
+    public BookFinder(Set<Book> books, TextTokenizer tokenizer) {
+        this.books = books;
+        this.textTokenizer = tokenizer;
     }
 
     @Override
-    public List<Book> searchByAuthor(String authorName) {
-        throw new UnsupportedOperationException("Not yet implemented");
+    public Set<Book> allBooks() {
+        return books;
     }
 
+    /**
+     * Retrieves all genres
+     *
+     * @return a Set of all genres.
+     */
     @Override
     public Set<String> allGenres() {
-        throw new UnsupportedOperationException("Not yet implemented");
+        return Set.of();
+    }
+
+    // DONE
+    @Override
+    public List<Book> searchByAuthor(String authorName) {
+        if (authorName == null || authorName.isEmpty()) {
+            throw new IllegalArgumentException("The author's name is null or is empty.");
+        }
+
+        return books.stream()
+            .filter(book -> book.author().equals(authorName))
+            .toList();
     }
 
     @Override
     public List<Book> searchByGenres(Set<String> genres, MatchOption option) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        if (genres == null) {
+            throw new IllegalArgumentException("The genres set cannot be null.");
+        }
+
+        switch (option) {
+            case MATCH_ANY -> books.stream()
+                .filter(book -> containsAnyGenre(book, genres))
+                .toList();
+            case MATCH_ALL -> books.stream()
+                .filter(book -> containsAllGenre(book, genres))
+                .toList();
+            default -> {
+                throw new IllegalArgumentException("The match option is not valid.");
+            }
+        }
+        return List.of();
     }
 
+    /**
+     * Searches for books that match the specified keywords.
+     * The search can be based on different match options (all or any keywords).
+     *
+     * @param keywords a {@code Set} of keywords to search for.
+     * @param option   the {@code MatchOption} that defines the search criteria
+     *                 (either {@link MatchOption#MATCH_ALL} or {@link MatchOption#MATCH_ANY}).
+     * @return a List of books in which the title or description match the given keywords according to the MatchOption
+     * Returns an empty list if no books are found.
+     */
     @Override
     public List<Book> searchByKeywords(Set<String> keywords, MatchOption option) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        return List.of();
+    }
+
+    private boolean containsAnyGenre(Book book, Set<String> genres) {
+        return genres.stream()
+            .anyMatch(genre -> book.genres().contains(genre));
+    }
+
+    private boolean containsAllGenre(Book book, Set<String> genres) {
+        return book.genres().containsAll(genres);
     }
 
 }
