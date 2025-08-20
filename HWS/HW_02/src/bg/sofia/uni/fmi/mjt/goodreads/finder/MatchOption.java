@@ -1,4 +1,6 @@
 package bg.sofia.uni.fmi.mjt.goodreads.finder;
 
-public class MatchOption {
+public enum MatchOption {
+    MATCH_ALL,
+    MATCH_ANY
 }
