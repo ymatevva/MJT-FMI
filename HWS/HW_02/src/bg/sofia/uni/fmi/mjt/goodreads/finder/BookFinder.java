@@ -28,13 +28,13 @@ public class BookFinder implements BookFinderAPI {
             .map(this::getGenres)
             .flatMap(List::stream)
             .collect(Collectors.toSet());
-
     }
 
     private List<String> getGenres(Book book) {
         return book.genres().stream().toList();
     }
     // DONE
+
     @Override
     public List<Book> searchByAuthor(String authorName) {
         if (authorName == null || authorName.isEmpty()) {
@@ -78,7 +78,25 @@ public class BookFinder implements BookFinderAPI {
      */
     @Override
     public List<Book> searchByKeywords(Set<String> keywords, MatchOption option) {
-        return List.of();
+
+        return books.stream()
+            .filter( book -> switch(option) {
+                case MATCH_ANY -> keywordIn(keywords, book);
+                case MATCH_ALL -> allKeywordsIn(keywords, book);
+            })
+            .toList();
+    }
+
+    private boolean keywordIn(Set<String> keywords, Book book) {
+        return keywords.stream()
+            .anyMatch(keyword -> book.description().contains(keyword)
+                                     || book.title().contains(keyword));
+    }
+
+    private boolean allKeywordsIn(Set<String> keywords, Book book) {
+        return keywords.stream()
+            .allMatch(keyword -> book.description().contains(keyword)
+                || book.title().contains(keyword));
     }
 
     private boolean containsAnyGenre(Book book, Set<String> genres) {
