@@ -10,6 +10,8 @@ public class GenresOverlapSimilarityCalculator implements SimilarityCalculator {
         if (first == null || second == null) {
             throw new IllegalArgumentException("The book arguments cannot be null.");
         }
+
+
     }
 
 }

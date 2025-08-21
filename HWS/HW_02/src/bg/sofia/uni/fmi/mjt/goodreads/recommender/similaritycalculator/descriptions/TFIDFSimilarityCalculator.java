@@ -8,11 +8,16 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class TFIDFSimilarityCalculator implements SimilarityCalculator {
 
-    public TFIDFSimilarityCalculator(Set<Book> books, TextTokenizer tokenizer) {
+    private Set<Book> books;
+    private TextTokenizer tokenizer;
 
+    public TFIDFSimilarityCalculator(Set<Book> books, TextTokenizer tokenizer) {
+        this.books = books;
+        this.tokenizer = tokenizer;
     }
 
     /*
@@ -27,15 +32,39 @@ public class TFIDFSimilarityCalculator implements SimilarityCalculator {
     }
 
     public Map<String, Double> computeTFIDF(Book book) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        Map<String, Double> tfValue = computeTF(book);
+        Map<String, Double> idfValue = computeIDF(book);
+
+        return tokenizer.tokenize(book.description()).stream()
+            .map(word -> Map.entry(word, tfValue.get(word) * idfValue.get(word)))
+            .collect(Collectors.toMap(
+                Map.Entry::getKey,
+                Map.Entry::getValue
+            ));
     }
 
     public Map<String, Double> computeTF(Book book) {
-        throw new UnsupportedOperationException("Not yet implemented");
+
+        // should return map with all words in the description and their count of occurrence
+
+        return tokenizer.tokenize(book.description()).stream()
+            .collect(Collectors.groupingBy(word -> word,
+                Collectors.collectingAndThen(Collectors.counting(), count -> count.doubleValue())));
     }
 
     public Map<String, Double> computeIDF(Book book) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        return tokenizer.tokenize(book.description()).stream()
+            .map(word -> Map.entry(word, Math.log((double) countBooksInWhichOccurred(word) / books.size())))
+            .collect(Collectors.toMap(
+                Map.Entry::getKey,
+                Map.Entry::getValue)
+            );
+    }
+
+    private int countBooksInWhichOccurred(String word) {
+        return (int) (books.stream()
+            .filter(book -> book.description().contains(word))
+            .count());
     }
 
     private double cosineSimilarity(Map<String, Double> first, Map<String, Double> second) {
