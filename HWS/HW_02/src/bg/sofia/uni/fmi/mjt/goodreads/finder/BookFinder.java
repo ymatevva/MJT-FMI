@@ -5,6 +5,7 @@ import bg.sofia.uni.fmi.mjt.goodreads.tokenizer.TextTokenizer;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class BookFinder implements BookFinderAPI {
 
@@ -21,16 +22,18 @@ public class BookFinder implements BookFinderAPI {
         return books;
     }
 
-    /**
-     * Retrieves all genres
-     *
-     * @return a Set of all genres.
-     */
     @Override
     public Set<String> allGenres() {
-        return Set.of();
+        return books.stream()
+            .map(this::getGenres)
+            .flatMap(List::stream)
+            .collect(Collectors.toSet());
+
     }
 
+    private List<String> getGenres(Book book) {
+        return book.genres().stream().toList();
+    }
     // DONE
     @Override
     public List<Book> searchByAuthor(String authorName) {
