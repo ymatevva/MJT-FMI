@@ -3,27 +3,45 @@ package bg.sofia.uni.fmi.mjt.goodreads.recommender;
 import bg.sofia.uni.fmi.mjt.goodreads.book.Book;
 import bg.sofia.uni.fmi.mjt.goodreads.recommender.similaritycalculator.SimilarityCalculator;
 
+import java.util.Comparator;
+import java.util.Map;
 import java.util.Set;
 import java.util.SortedMap;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 public class BookRecommender implements BookRecommenderAPI {
 
-    public BookRecommender(Set<Book> books, SimilarityCalculator calculator) {
+    private Set<Book> books;
+    private SimilarityCalculator calculator;
 
+    public BookRecommender(Set<Book> books, SimilarityCalculator calculator) {
+        this.books = books;
+        this.calculator = calculator;
     }
-    /**
-     * Searches for books that are similar to the provided one.
-     *
-     * @param originBook the book we should calculate similarity with.
-     * @param maxN       the maximum number of entries returned
-     * @return a SortedMap<Book, Double> representing the top maxN closest books
-     * with their similarity to originBook ordered by their similarity score
-     * @throws IllegalArgumentException if the originBook is null.
-     * @throws IllegalArgumentException if maxN is smaller or equal to 0.
-     */
 
     @Override
     public SortedMap<Book, Double> recommendBooks(Book originBook, int maxN) {
-        return null;
+        if (originBook == null) {
+            throw new IllegalArgumentException("The origin book cannot be null");
+        }
+
+        if (maxN <= 0) {
+            throw new IllegalArgumentException(
+                "The number of maximum books similar to the original should be positive number.");
+        }
+        return books.stream()
+            .map(book -> Map.entry(book, calculator.calculateSimilarity(book, originBook)))
+            .sorted(Map.Entry.<Book, Double>comparingByValue().reversed())
+            .limit(maxN)
+            .collect(Collectors.toMap(
+                Map.Entry::getKey,
+                Map.Entry::getValue,
+                (existing, replacement) -> existing,
+                () -> new TreeMap<>(
+                    Comparator.comparingDouble((Book b) -> calculator.calculateSimilarity(b, originBook))
+                        .reversed()
+                )
+            ));
     }
 }

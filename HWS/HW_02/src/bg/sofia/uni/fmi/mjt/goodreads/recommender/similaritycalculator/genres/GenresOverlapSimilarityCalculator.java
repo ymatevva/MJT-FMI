@@ -7,7 +7,9 @@ public class GenresOverlapSimilarityCalculator implements SimilarityCalculator {
 
     @Override
     public double calculateSimilarity(Book first, Book second) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        if (first == null || second == null) {
+            throw new IllegalArgumentException("The book arguments cannot be null.");
+        }
     }
 
 }

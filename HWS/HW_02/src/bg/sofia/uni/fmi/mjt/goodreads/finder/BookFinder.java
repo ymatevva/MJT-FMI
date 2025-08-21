@@ -15,6 +15,7 @@ public class BookFinder implements BookFinderAPI {
     public BookFinder(Set<Book> books, TextTokenizer tokenizer) {
         this.books = books;
         this.textTokenizer = tokenizer;
+
     }
 
     @Override
@@ -66,16 +67,6 @@ public class BookFinder implements BookFinderAPI {
         return List.of();
     }
 
-    /**
-     * Searches for books that match the specified keywords.
-     * The search can be based on different match options (all or any keywords).
-     *
-     * @param keywords a {@code Set} of keywords to search for.
-     * @param option   the {@code MatchOption} that defines the search criteria
-     *                 (either {@link MatchOption#MATCH_ALL} or {@link MatchOption#MATCH_ANY}).
-     * @return a List of books in which the title or description match the given keywords according to the MatchOption
-     * Returns an empty list if no books are found.
-     */
     @Override
     public List<Book> searchByKeywords(Set<String> keywords, MatchOption option) {
 
