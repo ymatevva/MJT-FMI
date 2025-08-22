@@ -30,6 +30,7 @@ public class BookRecommender implements BookRecommenderAPI {
             throw new IllegalArgumentException(
                 "The number of maximum books similar to the original should be positive number.");
         }
+
         return books.stream()
             .map(book -> Map.entry(book, calculator.calculateSimilarity(book, originBook)))
             .sorted(Map.Entry.<Book, Double>comparingByValue().reversed())

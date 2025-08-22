@@ -22,7 +22,6 @@ public record Book(
     private static final int RATING_COUNT_INDEX = 6;
     private static final int URL_INDEX = 7;
     private static final String SPLIT_SYMBOL = ",";
-    // TO DO: problem with parsing, because  descriptions can contain ","
 
     public static Book of(String[] tokens) {
 

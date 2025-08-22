@@ -15,7 +15,6 @@ public class BookFinder implements BookFinderAPI {
     public BookFinder(Set<Book> books, TextTokenizer tokenizer) {
         this.books = books;
         this.textTokenizer = tokenizer;
-
     }
 
     @Override
