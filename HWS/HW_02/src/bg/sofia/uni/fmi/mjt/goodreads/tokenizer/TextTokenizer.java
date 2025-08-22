@@ -12,6 +12,8 @@ import java.util.stream.Collectors;
 public class TextTokenizer {
 
     private final Set<String> stopwords;
+    private static final String PUNCTUAL_REGEX = "\\p{Punct}";
+    private static final String SPACE_REGEX = "\\s+";
 
     public TextTokenizer(Reader stopwordsReader) {
         try (var br = new BufferedReader(stopwordsReader)) {
@@ -26,8 +28,8 @@ public class TextTokenizer {
             throw new IllegalArgumentException("The input cannot be null.");
         }
 
-        input = input.replaceAll("\\p{Punct}", "");
-        input = input.replaceAll("\\s+", " ").trim();
+        input = input.replaceAll(PUNCTUAL_REGEX, "");
+        input = input.replaceAll(SPACE_REGEX, " ").trim();
 
         List<String> words = new ArrayList<>(Arrays.stream(input.toLowerCase().split(" ")).toList());
 
