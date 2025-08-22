@@ -22,6 +22,10 @@ public class TextTokenizer {
     }
 
     public List<String> tokenize(String input) {
+        if (input == null) {
+            throw new IllegalArgumentException("The input cannot be null.");
+        }
+
         input = input.replaceAll("\\p{Punct}", "");
         input = input.replaceAll("\\s+", " ").trim();
 

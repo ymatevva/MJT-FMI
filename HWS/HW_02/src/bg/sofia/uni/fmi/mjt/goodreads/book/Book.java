@@ -1,5 +1,6 @@
 package bg.sofia.uni.fmi.mjt.goodreads.book;
 
+import java.util.Arrays;
 import java.util.List;
 
 public record Book(
@@ -28,7 +29,8 @@ public record Book(
         String[] genres = tokens[GENRES_INDEX].split(SPLIT_SYMBOL);
 
         return new Book(tokens[ID_INDEX], tokens[TITLE_INDEX], tokens[AUTHOR_INDEX],
-            tokens[DESCRIPTION_INDEX], List.of(genres), Double.parseDouble(tokens[RATING_COUNT_INDEX]),
-            Integer.parseInt(tokens[RATING_INDEX]), tokens[URL_INDEX]);
+            tokens[DESCRIPTION_INDEX], Arrays.stream(genres).toList(),
+            Double.parseDouble(tokens[RATING_INDEX]),
+            Integer.parseInt(tokens[RATING_COUNT_INDEX].replaceAll(",", "")), tokens[URL_INDEX]);
     }
 }
