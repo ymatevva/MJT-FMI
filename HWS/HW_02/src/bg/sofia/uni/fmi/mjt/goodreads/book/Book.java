@@ -33,4 +33,5 @@ public record Book(
             Double.parseDouble(tokens[RATING_INDEX]),
             Integer.parseInt(tokens[RATING_COUNT_INDEX].replaceAll(",", "")), tokens[URL_INDEX]);
     }
+
 }

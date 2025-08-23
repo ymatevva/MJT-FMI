@@ -53,17 +53,20 @@ public class BookFinder implements BookFinderAPI {
         }
 
         switch (option) {
-            case MATCH_ANY -> books.stream()
-                .filter(book -> containsAnyGenre(book, genres))
-                .toList();
-            case MATCH_ALL -> books.stream()
-                .filter(book -> containsAllGenre(book, genres))
-                .toList();
+            case MATCH_ANY -> {
+                return books.stream()
+                    .filter(book -> containsAnyGenre(book, genres))
+                    .toList();
+            }
+            case MATCH_ALL -> {
+                return books.stream()
+                    .filter(book -> containsAllGenre(book, genres))
+                    .toList();
+            }
             default -> {
                 throw new IllegalArgumentException("The match option is not valid.");
             }
         }
-        return List.of();
     }
 
     @Override
