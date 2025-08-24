@@ -22,14 +22,27 @@ public record Book(
     private static final int RATING_INDEX = 5;
     private static final int RATING_COUNT_INDEX = 6;
     private static final int URL_INDEX = 7;
+    private static final int TOKENS_SIZE = 8;
     private static final String SPLIT_SYMBOL = ",";
+    private static final String GENRE_REGEX = "[\\[\\]\n]";
 
     public static Book of(String[] tokens) {
+        if (tokens.length != TOKENS_SIZE) {
+            throw new IllegalArgumentException("Tokens length should be correct.");
+        }
 
-        String[] genres = tokens[GENRES_INDEX].split(SPLIT_SYMBOL);
+        if (Arrays.stream(tokens).filter(token -> token == null).count() != 0) {
+            throw new IllegalArgumentException("Data for tokens cannot be null");
+        }
+
+        List<String> genres = Arrays.stream(tokens[GENRES_INDEX]
+                .replaceAll(GENRE_REGEX, "")
+                .split(SPLIT_SYMBOL))
+            .map(String::trim)
+            .toList();
 
         return new Book(tokens[ID_INDEX], tokens[TITLE_INDEX], tokens[AUTHOR_INDEX],
-            tokens[DESCRIPTION_INDEX], Arrays.stream(genres).toList(),
+            tokens[DESCRIPTION_INDEX], genres,
             Double.parseDouble(tokens[RATING_INDEX]),
             Integer.parseInt(tokens[RATING_COUNT_INDEX].replaceAll(",", "")), tokens[URL_INDEX]);
     }
