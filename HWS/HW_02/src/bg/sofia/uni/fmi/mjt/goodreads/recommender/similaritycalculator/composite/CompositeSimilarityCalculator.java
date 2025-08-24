@@ -20,7 +20,7 @@ public class CompositeSimilarityCalculator implements SimilarityCalculator {
 
         double totalSimilarity = 0;
         for (var calculatorMapEl : similarityCalculatorMap.entrySet()) {
-            totalSimilarity += calculatorMapEl.getKey().calculateSimilarity(first, second) + calculatorMapEl.getValue();
+            totalSimilarity += calculatorMapEl.getKey().calculateSimilarity(first, second) * calculatorMapEl.getValue();
         }
 
         return totalSimilarity;
