@@ -187,4 +187,14 @@ public class TestBookFinder {
             "Method should return empty list when a keyword is not found in no book.");
     }
 
+    @Test
+    void testSearchByGenresWithInvalidMatchOption() {
+        assertThrows(IllegalArgumentException.class, () -> bookFinder.searchByGenres(Set.of(),  Mockito.mock(MatchOption.class)), "Method should throw if match option is not valid.");
+    }
+
+    @Test
+    void testSearchByKeywordsWithInvalidMatchOption() {
+        assertThrows(IllegalArgumentException.class, () -> bookFinder.searchByKeywords(Set.of(),  Mockito.mock(MatchOption.class)), "Method should throw if match option is not valid.");
+    }
+
 }

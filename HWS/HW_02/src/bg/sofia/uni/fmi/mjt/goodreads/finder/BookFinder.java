@@ -4,6 +4,7 @@ import bg.sofia.uni.fmi.mjt.goodreads.book.Book;
 import bg.sofia.uni.fmi.mjt.goodreads.tokenizer.TextTokenizer;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -52,6 +53,10 @@ public class BookFinder implements BookFinderAPI {
             throw new IllegalArgumentException("The genres set cannot be null.");
         }
 
+        if (!option.equals(MatchOption.MATCH_ALL) && !option.equals(MatchOption.MATCH_ANY)) {
+            throw new IllegalArgumentException("The match option is not valid.");
+        }
+
         switch (option) {
             case MATCH_ANY -> {
                 return books.stream()
@@ -74,6 +79,10 @@ public class BookFinder implements BookFinderAPI {
 
         if (keywords == null || keywords.isEmpty()) {
             throw new IllegalArgumentException("The keywords cannot be null or empty.");
+        }
+
+        if (!option.equals(MatchOption.MATCH_ALL) && !option.equals(MatchOption.MATCH_ANY)) {
+            throw new IllegalArgumentException("The match option is not valid.");
         }
 
         return books.stream()

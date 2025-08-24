@@ -22,6 +22,10 @@ public class TFIDFSimilarityCalculator implements SimilarityCalculator {
 
     @Override
     public double calculateSimilarity(Book first, Book second) {
+        if (first == null || second == null) {
+            throw new IllegalArgumentException("The book arguments cannot be null");
+        }
+
         Map<String, Double> tfIdfScoresFirst = computeTFIDF(first);
         Map<String, Double> tfIdfScoresSecond = computeTFIDF(second);
 
@@ -36,14 +40,14 @@ public class TFIDFSimilarityCalculator implements SimilarityCalculator {
             .map(word -> Map.entry(word, tfValue.get(word) * idfValue.get(word)))
             .collect(Collectors.toMap(
                 Map.Entry::getKey,
-                Map.Entry::getValue
+                Map.Entry::getValue,
+                (existing, replacement) -> existing
             ));
     }
 
     public Map<String, Double> computeTF(Book book) {
 
         // should return map with all words in the description and their count of occurrence
-
         return tokenizer.tokenize(book.description()).stream()
             .collect(Collectors.groupingBy(word -> word,
                 Collectors.collectingAndThen(Collectors.counting(), count -> count.doubleValue())));
@@ -51,16 +55,17 @@ public class TFIDFSimilarityCalculator implements SimilarityCalculator {
 
     public Map<String, Double> computeIDF(Book book) {
         return tokenizer.tokenize(book.description()).stream()
-            .map(word -> Map.entry(word, Math.log((double) countBooksInWhichOccurred(word) / books.size())))
+            .map(word -> Map.entry(word, Math.log(countBooksInWhichOccurred(word) / books.size())))
             .collect(Collectors.toMap(
                 Map.Entry::getKey,
-                Map.Entry::getValue)
+                Map.Entry::getValue,
+                (existing, replacement) -> existing)
             );
     }
 
-    private int countBooksInWhichOccurred(String word) {
-        return (int) (books.stream()
-            .filter(book -> book.description().contains(word))
+    private double countBooksInWhichOccurred(String word) {
+        return (double) (books.stream()
+            .filter(book -> tokenizer.tokenize(book.description()).contains(word))
             .count());
     }
 

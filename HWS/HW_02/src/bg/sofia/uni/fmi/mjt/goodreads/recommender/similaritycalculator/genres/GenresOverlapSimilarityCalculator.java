@@ -17,10 +17,16 @@ public class GenresOverlapSimilarityCalculator implements SimilarityCalculator {
         Set<String> genresFirstBook = new HashSet<>(first.genres());
         Set<String> genresSecondBook = new HashSet<>(second.genres());
 
+        // this should be checked, bc if not => division by zero occurs
+
+        if (genresFirstBook.isEmpty() || genresSecondBook.isEmpty()) {
+            return 0;
+        }
+
         Set<String> intersection = new HashSet<>(genresFirstBook);
         intersection.retainAll(genresSecondBook);
 
-        return intersection.size() / Math.min(genresFirstBook.size(), genresSecondBook.size());
+        return (double) intersection.size() / Math.min(genresFirstBook.size(), genresSecondBook.size());
     }
 
 }
