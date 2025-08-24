@@ -6,6 +6,7 @@ import bg.sofia.uni.fmi.mjt.goodreads.tokenizer.TextTokenizer;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -16,8 +17,15 @@ public class TFIDFSimilarityCalculator implements SimilarityCalculator {
     private TextTokenizer tokenizer;
 
     public TFIDFSimilarityCalculator(Set<Book> books, TextTokenizer tokenizer) {
-        this.books = books;
+        setBooks(books);
         this.tokenizer = tokenizer;
+    }
+
+    public void setBooks(Set<Book> books) {
+        if (books == null) {
+            throw new IllegalArgumentException("The set of books cannot be null.");
+        }
+        this.books = books;
     }
 
     @Override
@@ -33,6 +41,7 @@ public class TFIDFSimilarityCalculator implements SimilarityCalculator {
     }
 
     public Map<String, Double> computeTFIDF(Book book) {
+
         Map<String, Double> tfValue = computeTF(book);
         Map<String, Double> idfValue = computeIDF(book);
 
@@ -46,16 +55,17 @@ public class TFIDFSimilarityCalculator implements SimilarityCalculator {
     }
 
     public Map<String, Double> computeTF(Book book) {
-
+        List<String> tokens = tokenizer.tokenize(book.description()); // tokenize once
+        int totalTokens = tokens.size();
         // should return map with all words in the description and their count of occurrence
-        return tokenizer.tokenize(book.description()).stream()
+        return tokens.stream()
             .collect(Collectors.groupingBy(word -> word,
-                Collectors.collectingAndThen(Collectors.counting(), count -> count.doubleValue())));
+                Collectors.collectingAndThen(Collectors.counting(), count -> (double)count / totalTokens)));
     }
 
     public Map<String, Double> computeIDF(Book book) {
         return tokenizer.tokenize(book.description()).stream()
-            .map(word -> Map.entry(word, Math.log(countBooksInWhichOccurred(word) / books.size())))
+            .map(word -> Map.entry(word, Math.log((double) books.size() / (1 + countBooksInWhichOccurred(word)))))
             .collect(Collectors.toMap(
                 Map.Entry::getKey,
                 Map.Entry::getValue,
