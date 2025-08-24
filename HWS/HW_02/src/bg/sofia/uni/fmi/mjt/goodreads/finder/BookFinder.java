@@ -72,6 +72,10 @@ public class BookFinder implements BookFinderAPI {
     @Override
     public List<Book> searchByKeywords(Set<String> keywords, MatchOption option) {
 
+        if (keywords == null || keywords.isEmpty()) {
+            throw new IllegalArgumentException("The keywords cannot be null or empty.");
+        }
+
         return books.stream()
             .filter( book -> switch(option) {
                 case MATCH_ANY -> keywordIn(keywords, book);
