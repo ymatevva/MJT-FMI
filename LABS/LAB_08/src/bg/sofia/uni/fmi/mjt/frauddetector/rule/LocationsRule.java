@@ -12,14 +12,6 @@ public class LocationsRule extends RuleImpl {
 
     // if the operations are made from more than 'threshold' locations => true
 
-     @Override
-    public boolean applicable(List<Transaction> transactions) {
-
-        return transactions.stream()
-            .collect(Collectors.groupingBy(Transaction::location
-                ,Collectors.counting())).size() > threshold();
-
-
     @Override
     public boolean applicable(List<Transaction> transactions) {
         int countOp = (int)transactions.stream()
