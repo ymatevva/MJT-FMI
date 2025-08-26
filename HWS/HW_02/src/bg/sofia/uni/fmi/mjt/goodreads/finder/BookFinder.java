@@ -3,6 +3,7 @@ package bg.sofia.uni.fmi.mjt.goodreads.finder;
 import bg.sofia.uni.fmi.mjt.goodreads.book.Book;
 import bg.sofia.uni.fmi.mjt.goodreads.tokenizer.TextTokenizer;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -20,7 +21,7 @@ public class BookFinder implements BookFinderAPI {
 
     @Override
     public Set<Book> allBooks() {
-        return books;
+        return Collections.unmodifiableSet(books);
     }
 
     @Override
