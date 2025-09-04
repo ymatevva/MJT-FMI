@@ -11,6 +11,7 @@ A repository for uploading exercises for the Modern Java Technologies course.
 - Unit Testing and Mocking:   <a href="https://github.com/fmi/java-course/tree/master/06-unit-testing-and-mocking/lab">LAB_06</a> - MJT Olympics  | <a href="https://github.com/ymatevva/MJT-FMI/tree/main/LABS/LAB_06">solution</a> </br>
 - IO streams and Files:       <a href="https://github.com/fmi/java-course/tree/master/07-io-streams-and-files/lab">LAB_07</a> - Photo Edge Detector  | <a href="https://github.com/ymatevva/MJT-FMI/tree/main/LABS/LAB_07">solution</a> </br>
 - Lambdas and Stream API:     <a href="https://github.com/fmi/java-course/tree/master/08-lambdas-and-stream-api/lab">LAB_08</a> - Fraud Detector | <a href="https://github.com/ymatevva/MJT-FMI/tree/main/LABS/LAB_08">solution</a> </br>
+- Threads:                    <a href="https://github.com/fmi/java-course/tree/master/09-threads/lab">LAB_09</a> - Sentiment Analyzer | <a href="https://github.com/ymatevva/MJT-FMI/tree/main/LABS/LAB_09">solution</a> </br>
 </pre>
 
 ### Homeworks:
