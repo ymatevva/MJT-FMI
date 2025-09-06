@@ -6,13 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="e91cd2e5-b17f-4887-838d-8d193e518bf6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bg/sofia/uni/fmi/mjt/sentimentanalyzer/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bg/sofia/uni/fmi/mjt/sentimentanalyzer/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bg/sofia/uni/fmi/mjt/sentimentanalyzer/ParallelSentimentAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bg/sofia/uni/fmi/mjt/sentimentanalyzer/ParallelSentimentAnalyzer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bg/sofia/uni/fmi/mjt/sentimentanalyzer/SentimentAnalyzerAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bg/sofia/uni/fmi/mjt/sentimentanalyzer/SentimentAnalyzerAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bg/sofia/uni/fmi/mjt/sentimentanalyzer/input/AnalyzerInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bg/sofia/uni/fmi/mjt/sentimentanalyzer/AnalyzerInput.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bg/sofia/uni/fmi/mjt/sentimentanalyzer/input/InputCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bg/sofia/uni/fmi/mjt/sentimentanalyzer/input/InputCalculator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bg/sofia/uni/fmi/mjt/sentimentanalyzer/input/InputLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bg/sofia/uni/fmi/mjt/sentimentanalyzer/input/InputLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bg/sofia/uni/fmi/mjt/sentimentanalyzer/input/SentimentScore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bg/sofia/uni/fmi/mjt/sentimentanalyzer/SentimentScore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AFINN-111.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bg/sofia/uni/fmi/mjt/sentimentanalyzer/tokenizer/TextTokenizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bg/sofia/uni/fmi/mjt/sentimentanalyzer/tokenizer/TextTokenizer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stopwords (1).txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
