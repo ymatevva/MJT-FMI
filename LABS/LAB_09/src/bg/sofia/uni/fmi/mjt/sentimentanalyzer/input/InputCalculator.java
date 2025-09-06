@@ -53,13 +53,23 @@ public class InputCalculator implements Runnable {
     private void calculateAndStoreScore(Input currInput) {
         List<String> currText = textTokenizer.tokenize(currInput.input());
 
-        int scoreSum = currText.stream()
+        int scoreSum = validateScore(currText.stream()
             .mapToInt(word -> sentimentLexicon.getOrDefault(word, SentimentScore.NEUTRAL).getScore())
-            .sum();
+            .sum());
 
+        
         synchronized (scores) {
             scores.put(currInput.ID(), SentimentScore.fromScore(scoreSum));
         }
     }
 
+    private int validateScore(int score) {
+        if (score < MINIMUM_SCORE) {
+            return MINIMUM_SCORE;
+        } else if (score > MAXIMUM_SCORE) {
+            return MAXIMUM_SCORE;
+        } else {
+            return score;
+        }
+    }
 }
