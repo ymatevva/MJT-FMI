@@ -1,4 +1,4 @@
-package bg.sofia.uni.fmi.mjt.sentimentanalyzer.input;
+package bg.sofia.uni.fmi.mjt.sentimentanalyzer;
 
 import java.io.Reader;
 

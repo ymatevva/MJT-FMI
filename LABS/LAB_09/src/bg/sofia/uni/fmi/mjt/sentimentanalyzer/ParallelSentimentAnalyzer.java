@@ -1,11 +1,9 @@
 package bg.sofia.uni.fmi.mjt.sentimentanalyzer;
 
 import bg.sofia.uni.fmi.mjt.sentimentanalyzer.exceptions.SentimentAnalysisException;
-import bg.sofia.uni.fmi.mjt.sentimentanalyzer.input.AnalyzerInput;
 import bg.sofia.uni.fmi.mjt.sentimentanalyzer.input.Input;
 import bg.sofia.uni.fmi.mjt.sentimentanalyzer.input.InputCalculator;
 import bg.sofia.uni.fmi.mjt.sentimentanalyzer.input.InputLoader;
-import bg.sofia.uni.fmi.mjt.sentimentanalyzer.input.SentimentScore;
 import bg.sofia.uni.fmi.mjt.sentimentanalyzer.tokenizer.TextTokenizer;
 
 import java.util.ArrayDeque;
@@ -56,7 +54,7 @@ public class ParallelSentimentAnalyzer implements SentimentAnalyzerAPI {
             try {
                 calculator.join();
             } catch (InterruptedException e) {
-                throw new SentimentAnalysisException("Join exception calc.");
+                throw new SentimentAnalysisException("Interrupted exception thrown while joining consumer threads.");
             }
         }
 

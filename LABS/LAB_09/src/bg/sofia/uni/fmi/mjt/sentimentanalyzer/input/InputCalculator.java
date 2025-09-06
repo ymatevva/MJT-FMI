@@ -1,5 +1,6 @@
 package bg.sofia.uni.fmi.mjt.sentimentanalyzer.input;
 
+import bg.sofia.uni.fmi.mjt.sentimentanalyzer.SentimentScore;
 import bg.sofia.uni.fmi.mjt.sentimentanalyzer.exceptions.SentimentAnalysisException;
 import bg.sofia.uni.fmi.mjt.sentimentanalyzer.tokenizer.TextTokenizer;
 
