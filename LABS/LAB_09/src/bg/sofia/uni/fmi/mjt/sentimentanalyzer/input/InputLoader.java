@@ -43,16 +43,14 @@ public class InputLoader implements Runnable {
 
         Input loadedInput = new Input(id, text.toString());
 
-        synchronized (inputs) {
-            inputs.offer(loadedInput);
-            inputs.notifyAll();
-        }
+         synchronized (inputs) {
+        inputs.offer(loadedInput);
 
         if (remainingLoaders.decrementAndGet() == 0) {
             areAllLoaded.set(true);
-            synchronized (inputs) {
-                inputs.notifyAll();
-            }
         }
+
+        inputs.notifyAll();
+    }
     }
 }
