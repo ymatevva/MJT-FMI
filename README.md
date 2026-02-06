@@ -14,3 +14,8 @@ A repository for uploading exercises for the Modern Java Technologies course.
 - Threads:                    <a href="https://github.com/fmi/java-course/tree/mjt-2024-2025/09-threads/lab">LAB_09</a> - Sentiment Analyzer | <a href="https://github.com/ymatevva/MJT-FMI/tree/main/LABS/LAB_09">solution</a> </br>
 </pre>
 
+### Homeworks:
+<pre>
+- <a href="https://github.com/fmi/java-course/tree/mjt-2024-2025/homeworks/01-glovo">HW_01</a> - Glovo  | <a href="https://github.com/ymatevva/MJT-FMI/tree/main/HWS/HW_01/src/bg/sofia/uni/fmi/mjt/glovo">solution</a> </br>
+- <a href="https://github.com/fmi/java-course/tree/mjt-2024-2025/homeworks/02-goodreads">HW_02</a> - Goodreads  | <a href="https://github.com/ymatevva/MJT-FMI/tree/main/HWS/HW_02">solution</a> </br>
+</pre>
